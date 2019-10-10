@@ -1,0 +1,255 @@
+rm -rf *.o lib/*.a lib/*.o bin/*
+g++ -c -O2 src/sort_tool.cpp -o sort_tool_opt.o
+g++ -c src/main.cpp -Ilib -o main_opt.o
+g++ -c lib/tm_usage.cpp
+ar rcv lib/libtm_usage.a tm_usage.o
+a - tm_usage.o
+g++ -O2 sort_tool_opt.o main_opt.o -ltm_usage -Llib -o bin/NTU_sort
+I>M>Q>S
+5case1
+The total CPU time: 0.061ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.064ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.052ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.047ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+1000case1
+The total CPU time: 0.446ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.463ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.169ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.136ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+1000case2
+The total CPU time: 0.067ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.398ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.533ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.121ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+1000case3
+The total CPU time: 0.838ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.403ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.23ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.144ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+2000case1
+The total CPU time: 0.821ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.832ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.245ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.206ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+2000case2
+The total CPU time: 0.051ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.658ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 4.956ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.185ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+2000case3
+The total CPU time: 2.823ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.699ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 5.248ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.175ms
+memory: 14008KB
+Congratulations: Your result passed this test!
+8000case1
+The total CPU time: 20.5ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.931ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.803ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.716ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+8000case2
+The total CPU time: 0.095ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.449ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 91.917ms
+memory: 14412KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.539ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+8000case3
+The total CPU time: 36.931ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.789ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 82.02ms
+memory: 14224KB
+Congratulations: Your result passed this test!
+The total CPU time: 0.698ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+16000case1
+The total CPU time: 87.736ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 3.961ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.259ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.714ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+16000case2
+The total CPU time: 0.068ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.947ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 227.581ms
+memory: 14792KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.148ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+16000case3
+The total CPU time: 105.041ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.865ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+The total CPU time: 172.484ms
+memory: 14412KB
+Congratulations: Your result passed this test!
+The total CPU time: 1.496ms
+memory: 14160KB
+Congratulations: Your result passed this test!
+32000case1
+The total CPU time: 224.786ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+The total CPU time: 9.404ms
+memory: 14420KB
+Congratulations: Your result passed this test!
+The total CPU time: 3.277ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+The total CPU time: 3.596ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+32000case2
+The total CPU time: 0.143ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+The total CPU time: 6.031ms
+memory: 14420KB
+Congratulations: Your result passed this test!
+The total CPU time: 748.577ms
+memory: 15608KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.783ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+32000case3
+The total CPU time: 406.552ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+The total CPU time: 9.421ms
+memory: 14420KB
+Congratulations: Your result passed this test!
+The total CPU time: 655.363ms
+memory: 14848KB
+Congratulations: Your result passed this test!
+The total CPU time: 2.375ms
+memory: 14292KB
+Congratulations: Your result passed this test!
+1000000case1
+The total CPU time: 189570ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+The total CPU time: 290.282ms
+memory: 24340KB
+Congratulations: Your result passed this test!
+The total CPU time: 104.162ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+The total CPU time: 175.88ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+1000000case2
+The total CPU time: 1.785ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+The total CPU time: 198.034ms
+memory: 24340KB
+Congratulations: Your result passed this test!
+The total CPU time: 739698ms
+memory: 64948KB
+Congratulations: Your result passed this test!
+The total CPU time: 89.055ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+1000000case3
+The total CPU time: 373641ms
+memory: 20248KB
+Congratulations: Your result passed this test!
+The total CPU time: 195.216ms
+memory: 24340KB
+Congratulations: Your result passed this test!
+The total CPU time: 439873ms
+memory: 35360KB
+Congratulations: Your result passed this test!
+The total CPU time: 87.619ms
+memory: 20248KB
+Congratulations: Your result passed this test!
