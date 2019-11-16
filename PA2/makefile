@@ -8,7 +8,9 @@ ARFLAGS = rcv
 # -O2 option is for optimized version
 DBGFLAGS = -g -D_DEBUG_ON_
 OPTFLAGS = -O2
-
-all	: ./mps
+TARGET = src/main.cpp
+all	: 
+	$(CC) $(TARGET) -o mps -g
 
 clean : 
+	rm -rf ./mps
