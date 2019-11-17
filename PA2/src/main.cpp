@@ -5,7 +5,9 @@
 
 using namespace std;
 int MIS(int i, int j, int *array, int **misrray);
-int backtrack(int i, int j, int *array, bool *crray, int **misrray);
+inline void backtrack(int i, int j, int *array, char *s, int num,
+                      int **misrray);
+// int backtrack(int i, int j, int *array, int **misrray);
 int main(int argc, char *argv[]) {
   ifstream fin;
   ofstream fout(argv[2]);
@@ -37,23 +39,23 @@ int main(int argc, char *argv[]) {
       array[b] = a;
       // cout << array[j] << " " << array[i] << endl;
     }
-    fout << MIS(0, num - 1, array, misrray) << endl;
+    // fout << MIS(0, num - 1, array, misrray) << endl;
   } else {
     cout << "file doesn't exist!";
   }
-  for (int p = 0; p < num; p++)
+  /*for (int p = 0; p < num; p++)
     cout << setw(2) << p + 1 << " ";
   cout << endl;
   for (int p = 0; p < num; p++) {
     for (int q = 0; q < num; q++)
       cout << setw(2) << misrray[p][q] << " ";
     cout << endl;
-  }
-  backtrack(0, num - 1, array, crray, misrray);
-  for (int p = 0; p < num; p++) {
+  }*/
+  backtrack(0, num - 1, array, argv[2], num, misrray);
+  /*for (int p = 0; p < num; p++) {
     if (crray[p])
       fout << p << " " << array[p] << endl;
-  }
+  }*/
 }
 int MIS(int i, int j, int *array, int **misrray) {
   // if (i >= 0 && j >= 0) {
@@ -87,10 +89,29 @@ int MIS(int i, int j, int *array, int **misrray) {
     }
   }
 }
-int backtrack(int i, int j, int *array, bool *crray, int **misrray) {
-  if (i >= j || misrray[i][j] == 0)
-    return 0;
-  if (misrray[i][j - 1] < misrray[i][j])
-    crray[array[j]] = true;
-  backtrack(i, j - 1, array, crray, misrray);
+inline void backtrack(int i, int j, int *array, char *s, int num,
+                      int **misrray) {
+
+  static ofstream fout(s);
+  if (j == num - 1) {
+    // cout << s << endl;
+    fout << MIS(0, num - 1, array, misrray) << endl;
+    // cout << MIS(0, num - 1, array, misrray) << endl;
+  }
+
+  if (i >= j)
+    return;
+  // if (misrray[i][j - 1] < misrray[i][j])
+  // crray[array[j]] = true;
+  if (i <= array[j] && array[j] < j) {
+    if (MIS(i, array[j] - 1, array, misrray) + 1 +
+            MIS(array[j] + 1, j - 1, array, misrray) >
+        MIS(i, j - 1, array, misrray)) {
+      backtrack(i, array[j] - 1, array, s, num, misrray);
+      fout << array[j] << " " << j << endl;
+      backtrack(array[j] + 1, j - 1, array, s, num, misrray);
+      return;
+    }
+  }
+  backtrack(i, j - 1, array, s, num, misrray);
 }

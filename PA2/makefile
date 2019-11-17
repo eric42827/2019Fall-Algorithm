@@ -13,4 +13,4 @@ all	:
 	$(CC) $(TARGET) -o mps -g
 
 clean : 
-	rm -rf ./mps
+	rm -rf ./mps *.out *.log
