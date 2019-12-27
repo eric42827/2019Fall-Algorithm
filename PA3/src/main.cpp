@@ -41,22 +41,21 @@ struct CycleBreaker
 
     void output(const char *outputFile){//outputfile
         ofs.open(outputFile);
+        check_io();
+        ofs.flush();
+        ofs.close();
+    }
+    void check_io(){
         ofs << graphType << endl;
         ofs << n << endl;
         ofs << m << endl;
-        
         for(int i = 0;i < n;i++){
             for(int j = 0;j < n;j++){
                 if(edges[ind(i,j,n)]<=100&&edges[ind(i,j,n)]>=-100)
                     ofs << i << " " << j << " " << edges[ind(i,j,n)] << endl;
             }
         }
-         
-
-        ofs.flush();
-        ofs.close();
     }
-    
 };
 
 
