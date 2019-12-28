@@ -1,12 +1,12 @@
-#define __STDC_LIMIT_MACROS 
+//#define __STDC_LIMIT_MACROS 
 #include<iostream>
 #include <cassert>
 #include <cstdint>
-#include <stdint.h>
+//#include <stdint.h>
 #include <fstream>
 #include <iomanip>
 #include <vector>
-#include <limits>
+//#include <limits>
 
 using namespace std;
 
@@ -23,11 +23,16 @@ struct CycleBreaker
     int n = 0;  //numOfVertices
     int m = 0;  //numOfEdges
     int64_t sum = 0;
-    vector<int16_t> edges; //denote which vertex connect
-    vector<int16_t> keys;
-    vector<int16_t> parents;
-    vector<bool> tree;
-    //vector<uint16_t> weights;   //denote weight of vertices
+    vector<int16_t> edges; //denote which vertex connect weight(-100~100)
+    vector<int32_t> edgeIndex;//ith edge(m:50000000)
+    vector<int16_t> keys;   //vertex key (-100~100)
+    vector<int16_t> parents;//(10000)
+    vector<bool> tree; //whether vertice is searched (n)
+    vector<int16_t> edge_u;
+    vector<int16_t> edge_v;
+    vector<int16_t> edge_w;
+    vector<bool> checkEdges;//store m edge 
+
     ofstream ofs;
 
     CycleBreaker(const char *inputFile){ //constructor
@@ -39,15 +44,26 @@ struct CycleBreaker
         ifs >> m;
         
         edges.assign(n*n,INT16_MIN);
+        edgeIndex.assign(n*n,-1);
         keys.assign(n,INT16_MIN);
         parents.assign(n,-1);
         tree.assign(n,false);
-        //weights.assign(n*n,0);
+
+        edge_u.assign(m,-1);
+        edge_v.assign(m,-1);
+        edge_w.assign(m,INT16_MIN);
+        checkEdges.assign(m,false);
+
         for(int i = 0; i < m; i++){
             uint16_t a = 0,b = 0;
             int16_t w = 0;
             ifs >> a >> b >> w;
             edges[ind(a,b,n)] = w;
+            edgeIndex[ind(a,b,n)] = i;
+            edge_u[i] = a;
+            edge_v[i] = b;
+            edge_w[i] = w;
+
             sum+=w;
             if(i==0){
                 keys[a]=0;
@@ -55,6 +71,7 @@ struct CycleBreaker
             //weights[a] = w;
             if(graphType != 'd'){
                 edges[ind(b,a,n)] = w;
+                edgeIndex[ind(b,a,n)] = i;
             }
         }
         MST();
@@ -66,17 +83,15 @@ struct CycleBreaker
         else{
             MST_Directed();
         }
-
     }
     void MST_Undirected(){
-        
         for(int i = 0;i<n;i++){
-            int16_t u = extractMax();
-            //cout << u <<endl;
+            int u = extractMax();//On2
             if(i!=0){
                 sum-=edges[ind(parents[u],u,n)];
-                edges[ind(parents[u],u,n)]=INT16_MIN;
-                edges[ind(u,parents[u],n)]=INT16_MIN;
+                //edges[ind(parents[u],u,n)]=INT16_MIN;
+                //edges[ind(u,parents[u],n)]=INT16_MIN;
+                checkEdges[edgeIndex[ind(parents[u],u,n)]] = true;
             }
             for(int v = 0;v < n;v++){
                 if(edges[ind(u,v,n)]!=INT16_MIN){
@@ -89,12 +104,22 @@ struct CycleBreaker
         }
     }
     void MST_Directed(){
-
+        MST_Undirected();
+        for(int i = 0;i<m;i++){
+            if(!checkEdges[i]&&edge_w[i]>=0&&!checkCycle(i)){
+                sum-=edge_w[i];
+                checkEdges[i]=true;
+            }
+        }
     }
-    int16_t extractMax(){
-        int16_t tempIndex = -1;
+    bool checkCycle(int i){
+        //TODO
+        return true;
+    }
+
+    int extractMax(){
+        int tempIndex = -1;
         int16_t tempKey = INT16_MIN;
-        int i = 0;
         for(int i =0;i<n;i++){
             if(!tree[i]){
                 int16_t temp = tempKey;
@@ -112,6 +137,18 @@ struct CycleBreaker
         ofs.open(outputFile);
         //check_io();
         ofs << sum << endl;
+        printmlinear();
+        ofs.flush();
+        ofs.close();
+    }
+    void printmlinear(){
+        for(int i = 0;i<m;i++){
+            if(!checkEdges[i]){
+                ofs << edge_u[i] << " " << edge_v[i] << " " << edge_w[i] << endl;
+            }
+        }
+    }
+    void printmn2(){
         for(int i = 0;i < n;i++){
             for(int j = 0;j < n;j++){
                 if(edges[ind(i,j,n)]!=INT16_MIN){
@@ -120,8 +157,6 @@ struct CycleBreaker
                 }   
             }
         }
-        ofs.flush();
-        ofs.close();
     }
     void check_io(){
         ofs << graphType << endl;

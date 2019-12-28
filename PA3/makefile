@@ -1,6 +1,6 @@
 # CC and CFLAGS are varilables
-CC = g++
-CFLAGS = -c -g -std=c++11 -Wall -pedantic
+CXX = g++
+CXXFLAGS = -std=c++11 -O3 -Wall
 AR = ar
 ARFLAGS = rcv
 # -c option ask g++ to compile the source files, but do not link.
@@ -10,7 +10,7 @@ DBGFLAGS = -g -D_DEBUG_ON_
 OPTFLAGS = -O3
 TARGET = src/main.cpp
 all	: 
-	$(CC) $(TARGET) -o cb $^
+	$(CXX) $(CXXFLAGS) $(TARGET)  -o cb 
 
 clean : 
 	rm -rf ./cb *.out *.log
