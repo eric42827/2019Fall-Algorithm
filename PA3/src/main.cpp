@@ -1,8 +1,15 @@
+#define __STDC_LIMIT_MACROS 
 #include<iostream>
+#include <cassert>
+#include <cstdint>
+#include <stdint.h>
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <limits>
+
 using namespace std;
+
 
 int ind(int i,int j,int num){return i*num+j;}//num for total num (this is n*n mat)
 int max(int x,int y){return x>y?x:y;}
