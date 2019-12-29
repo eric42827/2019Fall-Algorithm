@@ -25,6 +25,8 @@ struct CycleBreaker
     int64_t sum = 0;
     vector<int16_t> edges; //denote which vertex connect weight(-100~100)
     vector<int32_t> edgeIndex;//ith edge(m:50000000)
+    vector<vector<int16_t>>elist;
+    //vector<int16_t>adj;
     vector<int16_t> keys;   //vertex key (-100~100)
     vector<int16_t> parents;//(10000)
     vector<bool> tree; //whether vertice is searched (n)
@@ -53,7 +55,13 @@ struct CycleBreaker
         edge_v.assign(m,-1);
         edge_w.assign(m,INT16_MIN);
         checkEdges.assign(m,false);
-
+        elist.resize(n);
+        //elist = new vector<int16_t>[n];
+        for(int i =0;i<n;i++){
+            //vector<int16_t> v;
+            //elist[i] = vector(v);
+            elist[i].reserve(n);
+        }
         for(int i = 0; i < m; i++){
             uint16_t a = 0,b = 0;
             int16_t w = 0;
@@ -86,9 +94,10 @@ struct CycleBreaker
     }
     void MST_Undirected(){
         for(int i = 0;i<n;i++){
-            int u = extractMax();//On2
+            int16_t u = extractMax();//On2
             if(i!=0){
                 sum-=edges[ind(parents[u],u,n)];
+                elist[parents[u]].push_back(u);
                 //edges[ind(parents[u],u,n)]=INT16_MIN;
                 //edges[ind(u,parents[u],n)]=INT16_MIN;
                 checkEdges[edgeIndex[ind(parents[u],u,n)]] = true;
@@ -105,18 +114,44 @@ struct CycleBreaker
     }
     void MST_Directed(){
         MST_Undirected();
-        for(int i = 0;i<m;i++){
+        /*for(int i = 0;i<m;i++){
             if(!checkEdges[i]&&edge_w[i]>=0&&!checkCycle(i)){
                 sum-=edge_w[i];
                 checkEdges[i]=true;
             }
-        }
+        }*/
     }
-    bool checkCycle(int i){
+    /*bool checkCycle(int i){
         //TODO
-        return true;
+        elist[edge_u[i]].push_back(edge_v[i]);
+        vector<bool> visited;
+        vector<bool> rec;
+        visited.assign(n,false);
+        rec.assign(n,false);
+        for(int j = 0;j<n;j++){
+            if(checkCycleUtil(j,visited,rec)){
+                elist[edge_u[i]].pop_back();
+                return true;
+            }
+        }
+        return false;
     }
-
+    bool checkCycleUtil(int v,vector<bool> visited,vector<bool> rec){
+        if(!visited[v]){
+            visited[v]=true;
+            rec[v]=true;
+        }
+        vector<int16_t>::iterator i;
+        for(i =elist[v].begin();i!=elist[v].end();++i){
+            if(!visited[*i]&&checkCycleUtil(*i,visited,rec)){
+                return true;
+            }
+            else if(rec[*i])
+                return true;
+        }
+        rec[*i]=false;
+        return false;
+    }*/
     int extractMax(){
         int tempIndex = -1;
         int16_t tempKey = INT16_MIN;

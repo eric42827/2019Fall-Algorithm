@@ -10,7 +10,7 @@ DBGFLAGS = -g -D_DEBUG_ON_
 OPTFLAGS = -O3
 TARGET = src/main.cpp
 all	: 
-	$(CXX) $(CXXFLAGS) $(TARGET)  -o cb 
+	$(CXX) $(CXXFLAGS) $(TARGET)  -o cb -O3
 
 clean : 
 	rm -rf ./cb *.out *.log
